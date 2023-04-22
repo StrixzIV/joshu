@@ -52,7 +52,6 @@ Ngrok
 ปรับปรุงความสามารถในการประมวลผลภาษาธรรมชาติของแชทบอท
 
 ## อ้างอิง
-- [python linechatbot]([[https://flask.palletsprojects.com/](https://www.youtube.com/playlist?list=PLeohJaMRzYHohBzFbKJknovLFmQGwbBS-)](https://www.youtube.com/watch?v=nUAhoR1sV_k&list=PLeohJaMRzYHohBzFbKJknovLFmQGwbBS-&index=1))
 - [Flask Documentation](https://flask.palletsprojects.com/)
 - [Firebase Realtime Database Documentation](https://firebase.google.com/docs/database)
 - [Firebase Admin SDK Documentation](https://firebase.google.com/docs/admin/setup)
