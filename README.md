@@ -58,5 +58,8 @@ Ngrok
 - [Line Messaging API Documentation](https://developers.line.biz/en/docs/messaging-api/overview/)
 - [Ngrok Documentation](https://ngrok.com/docs)
 
+## ตัวอย่างการใช้งาน
+![Untitled-1](https://user-images.githubusercontent.com/104154862/233785011-8555ac4a-d28f-431e-99ce-c0c3848d18ce.jpg)
+![Untitled-2](https://user-images.githubusercontent.com/104154862/233785015-b9d832fb-b5a5-4250-8993-6ead6117b52e.jpg)
 
 
