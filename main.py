@@ -52,9 +52,6 @@ def generating_answer(question_from_dailogflow_dict):
     elif intent_group_question_str == 'iot sl':
         answer_str = iot_sl(question_from_dailogflow_dict)
         print("="*10,'iot sl worked')
-    elif intent_group_question_str == 'clear sta':
-        answer_str = clear_set(question_from_dailogflow_dict)
-        print("="*10,'clear_sta is worked')
     else: answer_str = "ผมไม่เข้าใจ คุณต้องการอะไร"
 
     #สร้างการแสดงของ dict 
@@ -121,8 +118,6 @@ def iot_sta():  #ฟังก์ชั่นสำหรับแสดงผล
     key_map = {
         'l_1': 'ไฟดวงที่1',
         'l_2': 'ไฟดวงที่2',
-        'sta_1': 'สถานะที่1',
-        'sta_2': 'สถานะที่2'
     }
     data_list = []
     for key, value in data_sta.items():
@@ -145,13 +140,6 @@ def iot_sl(respond_dict):
     db_value = key_map_sl[sl_sta]
     ref.update({db_key: db_value})
     answer_function = f'{sl_sta} {sl_value}'
-    return answer_function
-
-def clear_set(respond_dict) :   #new function
-    clear_sta = str(respond_dict["queryResult"]["outputContexts"][1]["parameters"]["clear_sta.original"])   #clear_sta
-    update_dict = {"l_1": "OFF", "l_2": "OFF", "air": "OFF"} if clear_sta == "clear" else {"l_1": "ON", "l_2": "ON", "air": "ON"}
-    ref.update(update_dict)
-    answer_function = f'{clear_sta}'
     return answer_function
 
 #Flask
