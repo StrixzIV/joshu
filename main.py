@@ -104,9 +104,9 @@ def tem() : #ฟังก์ชั่นสำหรับแสดงผลส�
     return answer_function
 
 # Initialize Firebase Admin SDK
-cred = credentials.Certificate("D:\\tatsukere\\final-test-bf8f8-firebase-adminsdk-qk61i-36963744fa.json")
+cred = credentials.Certificate("path//firebase-adminsdk.json")
 firebase_admin.initialize_app(cred, {
-    'databaseURL': 'https://final-test-bf8f8-default-rtdb.asia-southeast1.firebasedatabase.app/'
+    'databaseURL': 'you databaseURL'
 })
 # Read data from the Realtime Database
 ref = db.reference('/')
