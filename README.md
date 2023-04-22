@@ -52,6 +52,7 @@ Ngrok
 ปรับปรุงความสามารถในการประมวลผลภาษาธรรมชาติของแชทบอท
 
 ## อ้างอิง
+https://www.youtube.com/playlist?list=PLeohJaMRzYHohBzFbKJknovLFmQGwbBS-
 - [Flask Documentation](https://flask.palletsprojects.com/)
 - [Firebase Realtime Database Documentation](https://firebase.google.com/docs/database)
 - [Firebase Admin SDK Documentation](https://firebase.google.com/docs/admin/setup)
@@ -59,7 +60,7 @@ Ngrok
 - [Ngrok Documentation](https://ngrok.com/docs)
 
 ## ตัวอย่างการใช้งาน
-![Untitled-1](https://user-images.githubusercontent.com/104154862/233785011-8555ac4a-d28f-431e-99ce-c0c3848d18ce.jpg)
+![Untitled-1](https://user-images.githubusercontent.com/104154862/233785189-f91af317-f07d-464c-bce1-89c7f77bfa32.jpg)
 ![Untitled-2](https://user-images.githubusercontent.com/104154862/233785015-b9d832fb-b5a5-4250-8993-6ead6117b52e.jpg)
 
 
