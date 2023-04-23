@@ -1,3 +1,5 @@
+![joshu](https://user-images.githubusercontent.com/104154862/233819991-05188dc3-0275-4604-932b-89e9f80a0391.jpg)
+
 # LINE Chatbot for alive and IoT Device Control
 
 โครงการนี้เกี่ยวกับการสร้าง Line chatbot ที่สามารถควบคุมอุปกรณ์ IoT โดยใช้ Dialogflow เป็นเครื่องมือประมวลผลภาษาธรรมชาติ แชทบอทสามารถรับคำสั่งภาษาธรรมชาติจากผู้ใช้ ตีความโดยใช้ Dialogflow และควบคุมอุปกรณ์ IoT 
