@@ -30,10 +30,10 @@ def MainFunction():
     question_from_dailogflow_raw = request.get_json(silent=True, force=True)
 
     #เรียกใช้ฟังก์ชัน generate_answer เพื่อแยกส่วนของคำถาม
-    answer_from_bot = generating_answer(question_from_dailogflow_raw)
+    bot_answer = generating_answer(question_from_dailogflow_raw)
     
     #ตอบกลับไปที่ Dailogflow
-    r = make_response(answer_from_bot)
+    r = make_response(bot_answer)
     r.headers['Content-Type'] = 'application/json' #การตั้งค่าประเภทของข้อมูลที่จะตอบกลับไป
 
     return r
@@ -50,38 +50,55 @@ def generating_answer(question_from_dailogflow_dict):
     #ลูปตัวเลือกของฟังก์ชั่นสำหรับตอบคำถามกลับ
     if intent_group_question_str == 'food share':
         answer_str = food_share(question_from_dailogflow_dict)
-        print("="*10,'food share worked')
+        print(f'{"="*10} food share worked')
+
     elif intent_group_question_str == 'pm25':
         answer_str = pm25()
-        print("="*10,'pm25 worked')
+        print(f'{"="*10} PM 2.5 worked')
+
     elif intent_group_question_str == 'สภาพอากาศ':
         answer_str = tem()
-        print("="*10,'tem worked')
+        print(f'{"="*10} tem worked')
+        
     elif intent_group_question_str == 'iot':
         answer_str = iot_sta()
-        print("="*10,'iot worked')
+        print(f'{"="*10} IoT worked')
+
     elif intent_group_question_str == 'iot sl':
         answer_str = iot_sl(question_from_dailogflow_dict)
-        print("="*10,'iot sl worked')
-    else: answer_str = "ผมไม่เข้าใจ คุณต้องการอะไร"
+        print(f'{"="*10} IoT sl worked')
+
+    else: 
+        answer_str = "ผมไม่เข้าใจ คุณต้องการอะไร"
 
     #สร้างการแสดงของ dict 
-    answer_from_bot = {"fulfillmentText": answer_str}
+    bot_answer = {"fulfillmentText": answer_str}
     
     #แปลงจาก dict ให้เป็น JSON
-    answer_from_bot = json.dumps(answer_from_bot, indent=4) 
+    bot_answer = json.dumps(bot_answer, indent=4) 
     
-    return answer_from_bot
+    return bot_answer
 
 
-def food_share(respond_dict): #ฟังก์ชั่นสำหรับแชร์ค่าอาหาร
+def food_share(respond_dict: dict) -> str: 
+    
+    '''
+        ฟังก์ชั่นสำหรับแชร์ค่าอาหาร
+    '''
+    
     total = float(respond_dict["queryResult"]["outputContexts"][1]["parameters"]["total.original"])  #respond_dict
     n = float(respond_dict["queryResult"]["outputContexts"][1]["parameters"]["n.original"])
     
-    answer_function = '%.2f' %(total/n)     #2 ทศนิยม
-    return answer_function  
+    result = f'{(total/n):.2f}' #2 ทศนิยม
+    return result
 
-def pm25() : #ฟังก์ชั่นสำหรับแสดงผล pm2.5 pm25
+
+def pm25() -> str: 
+    
+    '''
+        ฟังก์ชั่นสำหรับแสดงผล PM 2.5
+    '''
+    
     pm_url = 'https://aqicn.org/city/beijing/'
     pm_response = requests.get(pm_url)
 
@@ -99,11 +116,16 @@ def pm25() : #ฟังก์ชั่นสำหรับแสดงผล pm
     else:
         print("AQI element not found.")
     output_tuple = aqi_value,info_text
-    answer_function = " ".join(str(x) for x in output_tuple)
-    return answer_function  
+    result = " ".join(str(x) for x in output_tuple)
+    return result  
 
 
-def tem() : #ฟังก์ชั่นสำหรับแสดงผลสภาพอากาศ
+def tem() -> str: 
+    
+    '''
+        ฟังก์ชั่นสำหรับแสดงผลสภาพอากาศ
+    '''
+    
     url = 'http://www.metalarm.tmd.go.th/monitor/media'
     response = requests.get(url)
 
@@ -111,9 +133,9 @@ def tem() : #ฟังก์ชั่นสำหรับแสดงผลส�
 
     # find the div with class "view_media_desc"
     div = soup.find('div', {'class': 'view_media_desc'})
-
-    answer_function = div.text
-    return answer_function
+    result = div.text
+    
+    return result
 
 
 def iot_sta():  #ฟังก์ชั่นสำหรับแสดงผล iot
@@ -127,25 +149,30 @@ def iot_sta():  #ฟังก์ชั่นสำหรับแสดงผล
     for key, value in data_sta.items():
         if key in key_map:
             data_list.append(f"{key_map[key]} {value}")
-    answer_function = '\n'.join(data_list)
+    result = '\n'.join(data_list)
     
-    return answer_function
+    return result
 
 
-def iot_sl(respond_dict):  
+def iot_sl(respond_dict: dict) -> str:  
+    
     sl_value = str(respond_dict["queryResult"]["outputContexts"][1]["parameters"]["value.original"])   #sl_value, sl_sta
     sl_sta = str(respond_dict["queryResult"]["outputContexts"][1]["parameters"]["sta.original"])
+    
     key_map_sl = {
         'ดวงที่1': 'l_1',
         'ดวงที่2': 'l_2',
         'เปิด': 'ON',
         'ปิด': 'OFF'
     }
+    
     db_key = key_map_sl[sl_value]
     db_value = key_map_sl[sl_sta]
+    
     ref.update({db_key: db_value})
-    answer_function = f'{sl_sta} {sl_value}'
-    return answer_function
+    
+    result = f'{sl_sta} {sl_value}'
+    return result
 
 
 if __name__ == '__main__':
