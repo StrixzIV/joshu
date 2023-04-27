@@ -1,14 +1,11 @@
-#Import Library
-import json
 import os
-from flask import Flask
-from flask import request
-from flask import make_response
+import json
 import requests
 from bs4 import BeautifulSoup
+from flask import Flask, request, make_response
+
 import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import db
+from firebase_admin import db, credentials
 
 # Initialize
 app = Flask(__name__)
