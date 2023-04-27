@@ -10,7 +10,7 @@ from firebase_admin import db, credentials
 # Initialize
 app = Flask(__name__)
 
-cred = credentials.Certificate("path//firebase-adminsdk.json")
+cred = credentials.Certificate("./firebase-adminsdk.json")
 
 firebase_admin.initialize_app(cred, {
     'databaseURL': 'Your database URL'
