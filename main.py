@@ -36,17 +36,17 @@ def joshu_api():
     return r
 
 
-def generating_answer(question_from_dailogflow_dict):
+def generating_answer(dailogflow_data: dict) -> str:
 
     #Print intent ที่รับมาจาก Dailogflow
-    print(json.dumps(question_from_dailogflow_dict, indent=4 ,ensure_ascii=False))
+    print(json.dumps(dailogflow_data, indent=4 ,ensure_ascii=False))
 
     #เก็บต่า ชื่อของ intent ที่รับมาจาก Dailogflow
-    intent_group_question_str = question_from_dailogflow_dict["queryResult"]["intent"]["displayName"]
+    intent_group_question_str = dailogflow_data["queryResult"]["intent"]["displayName"]
 
     #ลูปตัวเลือกของฟังก์ชั่นสำหรับตอบคำถามกลับ
     if intent_group_question_str == 'food share':
-        answer_str = food_share(question_from_dailogflow_dict)
+        answer_str = food_share(dailogflow_data)
         print(f'{"="*10} food share worked')
 
     elif intent_group_question_str == 'pm25':
@@ -62,7 +62,7 @@ def generating_answer(question_from_dailogflow_dict):
         print(f'{"="*10} IoT worked')
 
     elif intent_group_question_str == 'iot sl':
-        answer_str = iot_sl(question_from_dailogflow_dict)
+        answer_str = iot_sl(dailogflow_data)
         print(f'{"="*10} IoT sl worked')
 
     else: 
