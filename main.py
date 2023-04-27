@@ -21,7 +21,7 @@ ref = db.reference('/')
 data = ref.get()
 
 @app.route('/', methods=['POST']) 
-def MainFunction():
+def joshu_api():
 
     #รับ intent จาก Dailogflow
     question_from_dailogflow_raw = request.get_json(silent=True, force=True)
