@@ -101,20 +101,22 @@ def pm25() -> str:
 
     soup = BeautifulSoup(pm_response.content, 'html.parser')
     aqi_element = soup.find('div', {'class': 'aqivalue'})
-
-    if aqi_element:
-        aqi_value = aqi_element.text.strip()
-        info_element = soup.find('div', {'id': 'aqiwgtinfo'})
-
-        if info_element:
-            info_text = info_element.text.strip()
-        else:
-            print("Information element not found.")
-    else:
+    
+    if not aqi_element:
         print("AQI element not found.")
-    output_tuple = aqi_value,info_text
-    result = " ".join(str(x) for x in output_tuple)
-    return result  
+        return
+        
+    aqi_value = aqi_element.text.strip()
+    info_element = soup.find('div', {'id': 'aqiwgtinfo'})
+
+    if not info_element:
+        print("Information element not found.")
+        return
+    
+    info_text = info_element.text.strip()
+    result = f'{aqi_value} {info_text}'
+    
+    return result
 
 
 def tem() -> str: 
