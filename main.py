@@ -137,19 +137,21 @@ def tem() -> str:
     return result
 
 
-def iot_sta():  #ฟังก์ชั่นสำหรับแสดงผล iot
+def iot_sta():  
+    
+    '''
+        ฟังก์ชั่นสำหรับแสดงผล iot
+    '''
+    
     ref_sta = db.reference('/')
     data_sta = ref_sta.get()
+    
     key_map = {
         'l_1': 'ไฟดวงที่1',
         'l_2': 'ไฟดวงที่2',
     }
-    data_list = []
-    for key, value in data_sta.items():
-        if key in key_map:
-            data_list.append(f"{key_map[key]} {value}")
-    result = '\n'.join(data_list)
     
+    result = '\n'.join([f'{key_map[key]} {value}' for (key, value) in data_sta.items() if key in key_map])
     return result
 
 
