@@ -10,10 +10,20 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
 
-# Flask
+# Initialize
 app = Flask(__name__)
-@app.route('/', methods=['POST']) 
 
+cred = credentials.Certificate("path//firebase-adminsdk.json")
+
+firebase_admin.initialize_app(cred, {
+    'databaseURL': 'Your database URL'
+})
+
+# Read data from the Realtime Database
+ref = db.reference('/')
+data = ref.get()
+
+@app.route('/', methods=['POST']) 
 def MainFunction():
 
     #รับ intent จาก Dailogflow
@@ -27,6 +37,7 @@ def MainFunction():
     r.headers['Content-Type'] = 'application/json' #การตั้งค่าประเภทของข้อมูลที่จะตอบกลับไป
 
     return r
+
 
 def generating_answer(question_from_dailogflow_dict):
 
@@ -61,6 +72,7 @@ def generating_answer(question_from_dailogflow_dict):
     answer_from_bot = json.dumps(answer_from_bot, indent=4) 
     
     return answer_from_bot
+
 
 def food_share(respond_dict): #ฟังก์ชั่นสำหรับแชร์ค่าอาหาร
     total = float(respond_dict["queryResult"]["outputContexts"][1]["parameters"]["total.original"])  #respond_dict
@@ -103,14 +115,6 @@ def tem() : #ฟังก์ชั่นสำหรับแสดงผลส�
     answer_function = div.text
     return answer_function
 
-# Initialize Firebase Admin SDK
-cred = credentials.Certificate("path//firebase-adminsdk.json")
-firebase_admin.initialize_app(cred, {
-    'databaseURL': 'you databaseURL'
-})
-# Read data from the Realtime Database
-ref = db.reference('/')
-data = ref.get()
 
 def iot_sta():  #ฟังก์ชั่นสำหรับแสดงผล iot
     ref_sta = db.reference('/')
@@ -127,6 +131,7 @@ def iot_sta():  #ฟังก์ชั่นสำหรับแสดงผล
     
     return answer_function
 
+
 def iot_sl(respond_dict):  
     sl_value = str(respond_dict["queryResult"]["outputContexts"][1]["parameters"]["value.original"])   #sl_value, sl_sta
     sl_sta = str(respond_dict["queryResult"]["outputContexts"][1]["parameters"]["sta.original"])
@@ -142,7 +147,7 @@ def iot_sl(respond_dict):
     answer_function = f'{sl_sta} {sl_value}'
     return answer_function
 
-#Flask
+
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
     print("Starting app on port %d" % port)
